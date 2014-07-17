@@ -73,7 +73,7 @@ Bot.prototype.printMyTweets = function (callback) {
     });
 };
 
-Bot.prototype.deleteTweet = function (id_str) {
+Bot.prototype.deleteTweet = function (id_str, callback) {
     var self = this;
 
     self.twit.post('statuses/destroy/:id', { id: id_str }, function (err, data, response) {
