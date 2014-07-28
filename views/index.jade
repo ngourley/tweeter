@@ -1,0 +1,32 @@
+extends layout
+
+block body
+  div(class='row')
+    div(class='small-12 columns')
+      h1 
+        i(class='fa fa-twitter-square')
+        |  Twerp
+        small   a twitter bot with a slight attitude problem.
+  div(class='row', ng-controller="NavigationController")
+    nav(class='top-bar',data-topbar)
+      section(class="top-bar-section")
+        ul(class="left show-for-large-up")
+          li(ng-class='isActive("home")', style='border-bottom: 0px;' data-tooltip class="has-tip" title="Home")
+            a(href='#')
+              i(class="fa fa-user fa-2x", style='vertical-align: middle;')
+          li(ng-class='isActive("followers")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Followers")
+            a(ng-href='', ng-click='navLink("followers")')
+              i(class='fa fa-users fa-2x', style='vertical-align: middle;')
+          li(ng-class='isActive("dashboard")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Status")
+            a(ng-href='', ng-click='navLink("dashboard")')
+              i(class='fa fa-tachometer fa-2x', style='vertical-align: middle;')
+
+  div(class='row')
+    div(ng-view)
+
+  script(src='/socket.io/socket.io.js')
+  script(src='dist/vendor.js')
+  script(src='js/app.js')
+  script(src='js/controllers/NavigationController.js')
+  script(src='js/controllers/HomeController.js')
+  script(src='js/controllers/FollowersController.js')

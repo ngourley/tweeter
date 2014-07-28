@@ -1,23 +1,39 @@
 {
-  "name": "tweeter",
+  "name": "twerp",
   "version": "0.1.1",
-  "description": "Twitter bot",
+  "description": "A twitter bot with a slight attitude problem.",
   "main": "app.js",
   "dependencies": {
+    "express": "^4.6.1",
     "fibrous": "~0.3.3",
-    "q": "~1.0.1",
+    "jade": "^1.4.2",
     "moment": "~2.7.0",
+    "q": "~1.0.1",
+    "socket.io": "^1.0.6",
+    "twit": "~1.1.15",
     "underscore": "~1.6.0",
-    "winston": "~0.7.3",
-    "twit": "~1.1.15"
+    "winston": "~0.7.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-bower": "0.0.6",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.3.3",
+    "gulp-filesize": "0.0.6",
+    "gulp-jshint": "^1.7.1",
+    "gulp-minify-css": "^0.3.6",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-util": "^2.2.20",
+    "jshint-stylish": "^0.4.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ngourley/tweeter.git"
+    "url": "https://github.com/ngourley/twerp.git"
   },
   "keywords": [
     "twitter",
@@ -26,6 +42,6 @@
   "author": "ngourley@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ngourley/tweeter/issues"
+    "url": "https://github.com/ngourley/twerp/issues"
   }
 }

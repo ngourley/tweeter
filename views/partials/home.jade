@@ -1,0 +1,28 @@
+div(class='row')
+  div(class='small-12 columns')
+    h3 My Timeline
+    div(ng-repeat="tweet in tweets")
+      div(class='row')
+        blockquote(class='tweet-text') -{{tweet.text}}
+      div(class='row')
+        div(ng-show='tweet.retweeted_status === undefined')
+          div(class='small-2 columns')
+            label Tweeted By
+            p
+              a(href='https://twitter.com/{{tweet.user.screen_name}}', target='_blank') @{{tweet.user.screen_name}}
+            a(href="https://twitter.com/{{tweet.user.screen_name}}/statuses/{{tweet.id_str}}") {{tweet.id_str}}
+          div(class='small-10 columns')
+        div(ng-hide='tweet.retweeted_status === undefined')
+          div(class='small-2 columns')
+            label Retweeted By
+            p
+              a(href='https://twitter.com/{{tweet.user.screen_name}}', target='_blank') @{{tweet.user.screen_name}}
+            a(href="https://twitter.com/{{tweet.user.screen_name}}/statuses/{{tweet.id_str}}") {{tweet.id_str}}
+          div(class='small-2 columns')
+            label Original Tweet By
+            p
+              a(href='https://twitter.com/{{tweet.retweeted_status.user.screen_name}}') @{{tweet.retweeted_status.user.screen_name}}
+            a(href="https://twitter.com/{{tweet.retweeted_status.user.screen_name}}/statuses/{{tweet.retweeted_status.id_str}}") {{tweet.retweeted_status.id_str}}
+          div(class='small-8 columns')
+
+      
