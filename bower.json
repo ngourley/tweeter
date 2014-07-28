@@ -1,0 +1,26 @@
+{
+  "name": "twerp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ngourley/tweeter",
+  "authors": [
+    "Gourley",
+    "Nathan <ngourley@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.3.1",
+    "angular": "~1.2.20",
+    "angular-route": "~1.2.20",
+    "angular-socket-io": "~0.6.0",
+    "font-awesome": "~4.1.0",
+    "Autolinker.js": "~0.11.1"
+  }
+}
