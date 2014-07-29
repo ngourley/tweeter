@@ -9,6 +9,8 @@ var   config  = require('./config')
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, config.winston);
 
+require('./database');
+
 app = express();
 server = http.createServer(app);
 io = require('socket.io').listen(server);

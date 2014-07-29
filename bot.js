@@ -131,6 +131,11 @@ Bot.prototype.unfollow = function (userId, callback) {
     self.twit.post('friendships/destroy', { id: userId }, callback);
 };
 
+Bot.prototype.getFollowerIds = function (callback) {
+    var self = this;
+    self.twit.get('followers/ids', callback);
+};
+
 Bot.prototype.mingleLikelyToFollow = function (callback) {
     var self = this;
 
@@ -266,6 +271,35 @@ Bot.prototype.prune = function (callback) {
                 }
             }
         });
+    });
+};
+
+var Follower = require('./models/follower.js');
+
+Bot.prototype.cacheFollowers = function () {
+    var self = this;
+    this.getFollowerIds(function (err, response) {
+
+        if (err) {
+            return winston.error(err);
+        }
+
+        if (response.next_cursor !== 0) {
+            console.log(response.next_cursor)
+            winston.debug("Need to pull more users, "
+                + "would be nice to have this problem");
+        }
+
+        __.each(response.ids, function (id) {
+            Follower.upsertId(id, function (err, data) {
+                (err) ? winston.error(err) : winston.debug(data);
+            });
+        });
+
+        Follower.removeStale(response.ids, function (err,data) {
+            (err) ? winston.error(err) : winston.debug(data);
+        });
+
     });
 };
 

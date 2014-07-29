@@ -3,6 +3,11 @@ var   config  = require('./config')
 
 var bot = new Bot(config.twitter);
 
+// Note: Rename file later to reflect something like "brain" or "control"
+
+
+bot.cacheFollowers();
+
 module.exports = function (socket) {
 
     socket.on('myTweets::list', function () {
