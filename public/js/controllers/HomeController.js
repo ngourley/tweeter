@@ -8,6 +8,8 @@ angular.module('twerp').controller('HomeController',
             websocket.emit('myTweets::list');
         });
 
+        websocket.emit('myTweets::list');
+
         websocket.on('myTweets::list', function (err, data) {
             $scope.tweets = data;
             setTimeout(autoLink, 400);

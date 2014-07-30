@@ -1,12 +1,19 @@
 var   config  = require('./config')
-    , Bot     = require('./bot');
+    , Bot     = require('./bot')
+    , moment  = require('moment');
 
 var bot = new Bot(config.twitter);
 
 // Note: Rename file later to reflect something like "brain" or "control"
 
+bot.cacheFollowerIds();
+bot.cacheFollowerData();
 
-bot.cacheFollowers();
+setInterval(function () {
+    bot.cacheFollowerIds();
+    bot.cacheFollowerData();
+}, moment.duration(15, 'minute'));
+
 
 module.exports = function (socket) {
 
@@ -17,6 +24,8 @@ module.exports = function (socket) {
     });
 
     socket.on('followers::list', function () {
-        // TODO: Add logic here to return followers
+        bot.queryFollowerList(function (err, data) {
+            socket.emit('followers::list', err, data);
+        });
     });
 };

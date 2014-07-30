@@ -10,14 +10,17 @@ angular.module('twerp').controller('FollowersController',
         // specific request type
         // some logic might be needed to take in to account for pagination
 
-        // websocket.on('connect', function () {
-        //     websocket.emit('myTweets::list');
-        // });
+        websocket.on('connect', function () {
+            websocket.emit('followers::list');
+        });
 
-        // websocket.on('myTweets::list', function (err, data) {
-        //     $scope.tweets = data;
-        //     setTimeout(autoLink, 400);
-        // });
+        websocket.emit('followers::list');
+
+        websocket.on('followers::list', function (err, data) {
+            $scope.followers = data;
+            // console.log(data);
+            // setTimeout(autoLink, 400);
+        });
 
         // function autoLink () {
         //     var tweetTexts = $('.tweet-text');
