@@ -22,6 +22,11 @@ angular.module('twerp').controller('FollowersController',
             // setTimeout(autoLink, 400);
         });
 
+        $scope.getLargerImage = function (url) {
+            var newUrl = url.replace('_normal.jpeg', '_200x200.jpeg');
+            return newUrl;
+        };
+
         // function autoLink () {
         //     var tweetTexts = $('.tweet-text');
         //     tweetTexts.each(function() {

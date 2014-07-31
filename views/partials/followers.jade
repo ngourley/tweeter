@@ -1,6 +1,13 @@
-div(class='row' ng-repeat="follower in followers")
-  div(class='small-1 columns')
-    img(src="{{follower.profile_image_url}}")
-  div(class='small-11 columns')
-    h4 @{{follower.screen_name}}
-    
+div(ng-repeat="follower in followers")
+  div(class='row')
+    div(class='small-12 columns')
+     hr
+  div(class='row')
+    div(class='small-2 columns')
+      a(href='https://twitter.com/{{follower.screen_name}}', target='_blank')
+        img(src="{{getLargerImage(follower.profile_image_url)}}", style='width: 100%;')
+    div(class='small-10 columns')
+      h6 {{follower.name}}
+      h6 
+        a(href='https://twitter.com/{{follower.screen_name}}', target='_blank') @{{follower.screen_name}}
+      h6 {{follower.description}}

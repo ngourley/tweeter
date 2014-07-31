@@ -53,17 +53,6 @@ Bot.prototype.getRateLimit = function (callback) {
     self.twit.get('application/rate_limit_status', {resources: ['statuses', 'friendships']}, callback);
 };
 
-Bot.prototype.getFollowerList = function (cursor, callback) {
-    var self = this;
-    cursor = (cursor === undefined) ? -1 : cursor;
-    self.twit.get('followers/list', {'cursor': cursor}, callback);
-};
-
-Bot.prototype.getFollowerIds = function (callback) {
-    var self = this;
-    self.twit.get('followers/ids', callback);
-};
-
 Bot.prototype.tweet = function (text, callback) {
     var self = this;
 };
@@ -133,11 +122,6 @@ Bot.prototype.unfollow = function (userId, callback) {
     self.twit.post('friendships/destroy', { id: userId }, callback);
 };
 
-Bot.prototype.getFollowerIds = function (callback) {
-    var self = this;
-    self.twit.get('followers/ids', callback);
-};
-
 Bot.prototype.mingleLikelyToFollow = function (callback) {
     var self = this;
 
@@ -194,7 +178,6 @@ Bot.prototype.mingleLikelyToFollow = function (callback) {
         });
     });
 };
-
 
 Bot.prototype.mingle = function (callback) {
     var self = this;
@@ -274,67 +257,6 @@ Bot.prototype.prune = function (callback) {
             }
         });
     });
-};
-
-var Follower = require('./models/follower.js');
-
-Bot.prototype.cacheFollowerIds = function () {
-    var self = this;
-    this.getFollowerIds(function (err, response) {
-
-        if (err) {
-            return winston.error(err);
-        }
-
-        if (response.next_cursor !== 0) {
-            console.log(response.next_cursor)
-            winston.debug("Need to pull more users, "
-                + "would be nice to have this problem");
-        }
-
-        __.each(response.ids, function (id) {
-            Follower.upsertId(id, function (err, data) {
-                (err) ? winston.error(err) : winston.debug(data);
-            });
-        });
-
-        Follower.removeStale(response.ids, function (err,data) {
-            (err) ? winston.error(err) : winston.debug(data);
-        });
-
-    });
-};
-
-Bot.prototype.cacheFollowerData = function () {
-    var self = this;
-    var next_cursor = undefined;
-
-    async.doWhilst(function (callback) {
-        self.getFollowerList(next_cursor, function (err, data) {
-            if (err) {
-                return callback(err);
-            }
-            __.each(data.users, function (user) {
-                Follower.upsertUser(user, function (err, data) {
-                    if (err) {
-                        winston.error(err);
-                    }
-                })
-            });
-            next_cursor = data.next_cursor;
-            callback();
-        });
-    }, function test () {
-        return (next_cursor !== 0);
-    }, function cb (err) {
-        if (err) {
-            winston.error(err);
-        }
-    });
-};
-
-Bot.prototype.queryFollowerList = function (callback) {
-    Follower.list(callback);
 };
 
 module.exports = Bot;
