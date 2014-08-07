@@ -7,8 +7,8 @@ var bot = new Bot(config.twitter);
 
 // Note: Rename file later to reflect something like "brain" or "control"
 
-follower.cacheIds();
-follower.cacheList();
+// follower.cacheIds();
+// follower.cacheList();
 
 setInterval(function () {
     follower.cacheIds();
@@ -29,4 +29,11 @@ module.exports = function (socket) {
             socket.emit('followers::list', err, data);
         });
     });
+
+    socket.on('retweet::topic', function (topic) {
+        bot.retweetTopic(topic, function (err, data) {
+            socket.emit('retweet::topic', err, data);
+        });
+    });
+
 };

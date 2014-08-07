@@ -17,9 +17,9 @@ block body
           li(ng-class='isActive("followers")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Followers")
             a(ng-href='', ng-click='navLink("followers")')
               i(class='fa fa-users fa-2x', style='vertical-align: middle;')
-          li(ng-class='isActive("dashboard")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Status")
-            a(ng-href='', ng-click='navLink("dashboard")')
-              i(class='fa fa-tachometer fa-2x', style='vertical-align: middle;')
+          li(ng-class='isActive("actions")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Status")
+            a(ng-href='', ng-click='navLink("actions")')
+              i(class='fa fa-play fa-2x', style='vertical-align: middle;')
 
   div(class='row')
     div(ng-view)
@@ -30,3 +30,4 @@ block body
   script(src='js/controllers/NavigationController.js')
   script(src='js/controllers/HomeController.js')
   script(src='js/controllers/FollowersController.js')
+  script(src='js/controllers/ActionsController.js')

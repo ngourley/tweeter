@@ -93,16 +93,24 @@ Bot.prototype.retweetMostPopular = function (exclusionList, params, callback) {
         var max = 0, popular;
 
         __.each(data.statuses, function(tweet) {
-            if(exclusionList.indexOf(tweet.id_str) !== -1) {
+
+            if (exclusionList.indexOf(tweet.id_str) !== -1) {
                 return;
-            } 
+            }
+
+            // TODO - Remove nested if-statement
+            if (tweet.retweeted_status !== undefined) {
+                if (exclusionList.indexOf(tweet.retweeted_status.id_str) !== -1) {
+                    return;
+                }
+            }
 
             if (tweet.retweet_count > max) {
                 max = tweet.retweet_count;
                 popular = tweet;
             }
         });
-        console.log(popular);
+
         self.twit.post('statuses/retweet/:id', { id: popular.id_str, }, callback);
     });
 }

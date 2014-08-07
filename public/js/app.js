@@ -18,6 +18,10 @@ config(['$routeProvider', function($routeProvider) {
         templateUrl:'partials/followers',
         controller: 'FollowersController',
     });
+    $routeProvider.when('/actions', {
+        templateUrl:'partials/actions',
+        controller: 'ActionsController',
+    });
     $routeProvider.otherwise({redirectTo: '/home'});
 }]).run(function($rootScope) {
 

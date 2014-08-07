@@ -5,7 +5,7 @@ angular.module('twerp').controller('HomeController',
     function($scope, $location, websocket) {
 
         websocket.on('connect', function () {
-            websocket.emit('myTweets::list');
+
         });
 
         websocket.emit('myTweets::list');

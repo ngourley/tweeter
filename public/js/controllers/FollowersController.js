@@ -11,7 +11,7 @@ angular.module('twerp').controller('FollowersController',
         // some logic might be needed to take in to account for pagination
 
         websocket.on('connect', function () {
-            websocket.emit('followers::list');
+
         });
 
         websocket.emit('followers::list');
