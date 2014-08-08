@@ -35,5 +35,11 @@ module.exports = function (socket) {
             socket.emit('retweet::topic', err, data);
         });
     });
+    
+    socket.on('myTweets::delete', function (tweet) {
+        bot.untweet(tweet, function (err, data) {
+            socket.emit('myTweets::delete', err, data);
+        });
+    });
 
 };

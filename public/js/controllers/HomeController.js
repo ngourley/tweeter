@@ -15,6 +15,12 @@ angular.module('twerp').controller('HomeController',
             setTimeout(autoLink, 400);
         });
 
+        websocket.on('myTweets::delete', function (err, data) {
+            if (!err) {
+                websocket.emit('myTweets::list');
+            }
+        });
+
         function autoLink () {
             var tweetTexts = $('.tweet-text');
             tweetTexts.each(function() {
@@ -22,5 +28,9 @@ angular.module('twerp').controller('HomeController',
                 var linkedText = Autolinker.link(originalText);
                 $(this).html(linkedText);
             });
+        };
+
+        $scope.delete = function (tweet) {
+            websocket.emit('myTweets::delete', tweet);
         };
 }]);
