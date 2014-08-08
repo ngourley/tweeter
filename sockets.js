@@ -33,12 +33,18 @@ module.exports = function (socket) {
     socket.on('retweet::topic', function (topic) {
         bot.retweetTopic(topic, function (err, data) {
             socket.emit('retweet::topic', err, data);
+            bot.getMyTweets(function(err, data) {
+                socket.broadcast.emit('myTweets::list', err, data);
+            });
         });
     });
     
     socket.on('myTweets::delete', function (tweet) {
         bot.untweet(tweet, function (err, data) {
             socket.emit('myTweets::delete', err, data);
+            bot.getMyTweets(function(err, data) {
+                socket.broadcast.emit('myTweets::list', err, data);
+            });
         });
     });
 

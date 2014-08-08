@@ -2,7 +2,7 @@
 
 angular.module('twerp').controller('HomeController',
     ['$scope', '$location', 'websocket',
-    function($scope, $location, websocket) {
+    function ($scope, $location, websocket) {
 
         websocket.on('connect', function () {
 
