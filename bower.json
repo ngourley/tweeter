@@ -21,6 +21,7 @@
     "angular-route": "~1.2.20",
     "angular-socket-io": "~0.6.0",
     "font-awesome": "~4.1.0",
-    "Autolinker.js": "~0.11.1"
+    "Autolinker.js": "~0.11.1",
+    "notifyjs": "~0.3.2"
   }
 }

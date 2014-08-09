@@ -1,14 +1,14 @@
 h3 Actions
 div(class='row')
-  div(class='small-2 columns')
-    label Retweet Popular
-    i(class='fa fa-retweet fa-2x')
-  div(class='small-3 columns')
-    label Topic
-    input(ng-model='topic', type='text')
-  div(class='small-3 columns')
-    label
-      br
-    a(ng-click='retweetTopic()' class="tiny button") Do it!
-  div(class='small-4 columns')
-    {{retweetTopicResult}}
+  form(name='retweetTopicForm', novalidate, ng-submit='retweetTopicForm.$valid && retweetTopic()')
+    div(class='small-2 columns')
+      label Retweet Popular
+      i(class='fa fa-retweet fa-2x')
+    div(class='small-3 columns')
+      label Topic
+      input(ng-model='topic', type='text', required)
+    div(class='small-3 columns')
+      label
+        br
+      input(type='submit',class='tiny button', ng-disabled='retweetTopicForm.$invalid')
+    div(class='small-4 columns')
