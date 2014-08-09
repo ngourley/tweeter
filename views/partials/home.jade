@@ -1,8 +1,8 @@
 div(class='row')
   div(class='small-12 columns')
-    h3 Tweets
+    h3 My Tweets
+    hr(style='margin-top: 0px;')
 div(ng-repeat="tweet in tweets")
-  hr
   div(class='row')
     div(class='small-12 columns')
       p(class='tweet-text') {{tweet.retweeted_status.text || tweet.text}}
@@ -31,3 +31,4 @@ div(ng-repeat="tweet in tweets")
           li(class='button tiny' ng-click='delete(tweet)')
             i(class='fa fa-trash-o fa-lg')
       div(class='small-4 columns')
+  hr

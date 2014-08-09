@@ -20,6 +20,9 @@ block body
           li(ng-class='isActive("actions")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Status")
             a(ng-href='', ng-click='navLink("actions")')
               i(class='fa fa-play fa-2x', style='vertical-align: middle;')
+          li(ng-class='isActive("automation")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Automation")
+            a(ng-href='', ng-click='navLink("automation")')
+              i(class='fa fa-cogs fa-2x', style='vertical-align: middle;')
 
   div(class='row')
     div(ng-view)
@@ -31,3 +34,4 @@ block body
   script(src='js/controllers/HomeController.js')
   script(src='js/controllers/FollowersController.js')
   script(src='js/controllers/ActionsController.js')
+  script(src='js/controllers/AutomationController.js')

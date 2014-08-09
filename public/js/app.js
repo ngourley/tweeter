@@ -22,9 +22,13 @@ config(['$routeProvider', function($routeProvider) {
         templateUrl:'partials/actions',
         controller: 'ActionsController',
     });
+    $routeProvider.when('/automation', {
+        templateUrl:'partials/automation',
+        controller: 'AutomationController'
+    });
     $routeProvider.otherwise({redirectTo: '/home'});
 }]).run(function($rootScope) {
-
+    $(document).foundation();
 });
 
 // Init Controllers

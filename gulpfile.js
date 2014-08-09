@@ -31,6 +31,9 @@ files.vendor.javascript = [
     'bower_components/Autolinker.js/dist/Autolinker.js',
     'bower_components/notifyjs/dist/notify.js',
     'bower_components/notifyjs/dist/styles/bootstrap/notify-bootstrap.js',
+    'bower_components/modernizr/modernizr.js',
+    'bower_components/foundation/js/foundation.js',
+
 ];
 files.vendor.css = [
     'bower_components/foundation/css/foundation.css',

@@ -1,8 +1,9 @@
-h3 Followers {{followers.length}}
+div(class='row')
+  div(class='small-12 columns')
+    h3 Followers {{followers.length}}
+    hr(style='margin-top: 0px;')
 div(ng-repeat="follower in followers")
-  div(class='row')
-    div(class='small-12 columns')
-     hr
+
   div(class='row')
     div(class='small-2 columns')
       a(href='https://twitter.com/{{follower.screen_name}}', target='_blank')
@@ -12,3 +13,6 @@ div(ng-repeat="follower in followers")
       h6 
         a(href='https://twitter.com/{{follower.screen_name}}', target='_blank') @{{follower.screen_name}}
       h6 {{follower.description}}
+  div(class='row')
+    div(class='small-12 columns')
+      hr
