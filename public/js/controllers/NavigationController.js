@@ -33,4 +33,8 @@ angular.module('twerp').controller('NavigationController',
             var url = ['', newPath].join('/');
             $location.path(url);
         };
+
+        $scope.$on('$destroy', function (event) {
+            websocket.removeAllListeners();
+        });
 }]);

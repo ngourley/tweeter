@@ -33,4 +33,8 @@ angular.module('twerp').controller('HomeController',
         $scope.delete = function (tweet) {
             websocket.emit('myTweets::delete', tweet);
         };
+
+        $scope.$on('$destroy', function (event) {
+            websocket.removeAllListeners();
+        });
 }]);

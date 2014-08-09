@@ -11,10 +11,8 @@ angular.module('twerp').controller('ActionsController',
         });
 
         websocket.on('retweet::topic', function (err, data) {
-            $scope.retweetTopicResult = (err) ? err : data;
-
             if (err) {
-                return $.notify(err, "warn");
+                return $.notify(err.statusCode + ' ' + err.twitterReply, "warn");
             }
             $.notify('Retweeted: ' + data.retweeted_status.text, "success");
         });
@@ -24,4 +22,7 @@ angular.module('twerp').controller('ActionsController',
             $scope.topic = '';
         };
 
+        $scope.$on('$destroy', function (event) {
+            websocket.removeAllListeners();
+        });
 }]);

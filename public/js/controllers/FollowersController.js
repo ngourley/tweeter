@@ -27,6 +27,10 @@ angular.module('twerp').controller('FollowersController',
             return newUrl;
         };
 
+        $scope.$on('$destroy', function (event) {
+            websocket.removeAllListeners();
+        });
+
         // function autoLink () {
         //     var tweetTexts = $('.tweet-text');
         //     tweetTexts.each(function() {
