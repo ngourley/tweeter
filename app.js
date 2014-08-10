@@ -1,12 +1,10 @@
-var   package = require('./package')
-    , config  = require('./config')
+var   config  = require('./config')
     , winston = require('winston')
     , http    = require('http')
     , express = require('express')
     , path    = require('path')
     , routes  = require('./routes')
-    , app, server, io, port
-    , application, version;
+    , app, server, io, port;
 
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, config.winston);
@@ -21,7 +19,6 @@ io = require('socket.io').listen(server);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expvar.middleware);
 
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
