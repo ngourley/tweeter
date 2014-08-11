@@ -23,6 +23,7 @@
     "font-awesome": "~4.1.0",
     "Autolinker.js": "~0.11.1",
     "notifyjs": "~0.3.2",
-    "moment": "~2.8.1"
+    "moment": "~2.8.1",
+    "underscore": "~1.6.0"
   }
 }

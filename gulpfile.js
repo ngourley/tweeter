@@ -34,6 +34,7 @@ files.vendor.javascript = [
     'bower_components/modernizr/modernizr.js',
     'bower_components/foundation/js/foundation.js',
     'bower_components/moment/moment.js',
+    'bower_components/underscore/underscore.js',
 
 ];
 files.vendor.css = [
