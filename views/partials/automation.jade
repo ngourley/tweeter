@@ -2,3 +2,22 @@ div(class='row')
   div(class='small-12 columns')
     h3 Automation
     hr(style='margin-top: 0px;')
+div(ng-repeat="task in tasks")
+  div(class='row')
+    div(class='small-2 columns')
+      label Task
+      h6 {{task.name}}
+    div(class='small-2 columns')
+      label Run On Startup
+      div(class='switch')
+        input(id='{{task._id}}-switch', type='checkbox', ng-model='task.run_on_startup')
+        label(for='{{task._id}}-switch')
+    div(class='small-2 columns')
+      label Interval
+      p {{task.interval}}
+      input(type='text', ng-model='task.interval')
+    div(class='small-10 columns')
+      {{task}}
+  div(class='row')
+    div(class='small-12 columns')
+      hr

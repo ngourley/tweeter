@@ -33,6 +33,7 @@ files.vendor.javascript = [
     'bower_components/notifyjs/dist/styles/bootstrap/notify-bootstrap.js',
     'bower_components/modernizr/modernizr.js',
     'bower_components/foundation/js/foundation.js',
+    'bower_components/moment/moment.js',
 
 ];
 files.vendor.css = [

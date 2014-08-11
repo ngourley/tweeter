@@ -46,9 +46,9 @@ function _setInterval (task, callback) {
         func();
     }
     
-    setInterval(func ,task.interval);
+    setInterval(func, task.interval);
 
-    callback(null, task.name + ' complete.');
+    callback(null, 'Interval set for ' + task.name);
 }
 
 function _initResult (err, result) {
