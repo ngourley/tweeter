@@ -1,6 +1,7 @@
 var   config   = require('./config')
     , Bot      = require('./bot')
     , follower = require('./models/follower')
+    , friend   = require('./models/friend')
     , task     = require('./models/task');
 
 var bot = new Bot(config.twitter);
@@ -16,6 +17,12 @@ module.exports = function (socket) {
     socket.on('followers::list', function () {
         follower.list(function (err, data) {
             socket.emit('followers::list', err, data);
+        });
+    });
+
+    socket.on('friends::list', function () {
+        friend.list(function (err, data) {
+            socket.emit('friends::list', err, data);
         });
     });
 
@@ -40,6 +47,12 @@ module.exports = function (socket) {
     socket.on('tasks::list', function () {
         task.list(function (err, data) {
             socket.emit('tasks::list', err, data);
+        });
+    });
+
+    socket.on('tasks::update', function (taskUpdate) {
+        task.update(taskUpdate, function(err, data) {
+            socket.emit('tasks::update', err, data);
         });
     });
 

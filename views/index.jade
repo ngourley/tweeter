@@ -13,13 +13,13 @@ block body
         ul(class="left show-for-large-up")
           li(ng-class='isActive("home")', style='border-bottom: 0px;' data-tooltip class="has-tip" title="Home")
             a(href='#')
-              i(class="fa fa-user fa-2x", style='vertical-align: middle;')
+              i(class="fa fa-home fa-2x", style='vertical-align: middle;')
           li(ng-class='isActive("followers")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Followers")
-            a(ng-href='', ng-click='navLink("followers")')
-              i(class='fa fa-users fa-2x', style='vertical-align: middle;')
+            a(ng-href='', ng-click='navLink("followers")') Followers
+          li(ng-class='isActive("friends")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Friends")
+            a(ng-href='', ng-click='navLink("friends")') Friends
           li(ng-class='isActive("actions")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Actions")
-            a(ng-href='', ng-click='navLink("actions")')
-              i(class='fa fa-play fa-2x', style='vertical-align: middle;')
+            a(ng-href='', ng-click='navLink("actions")') Actions
           li(ng-class='isActive("automation")', style='border-bottom: 0px;' data-tooltip class="has-tip tip-bottom" title="Automation")
             a(ng-href='', ng-click='navLink("automation")')
               i(class='fa fa-cogs fa-2x', style='vertical-align: middle;')
@@ -33,5 +33,6 @@ block body
   script(src='js/controllers/NavigationController.js')
   script(src='js/controllers/HomeController.js')
   script(src='js/controllers/FollowersController.js')
+  script(src='js/controllers/FriendsController.js')
   script(src='js/controllers/ActionsController.js')
   script(src='js/controllers/AutomationController.js')

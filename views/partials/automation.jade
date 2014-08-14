@@ -4,23 +4,28 @@ div(class='row')
     hr(style='margin-top: 0px;')
 div(ng-repeat="task in tasks")
   div(class='row')
-    div(class='small-2 columns')
-      label Task
-      h6 {{task.name}}
-    div(class='small-2 columns')
-      label Run On Startup
-      div(class='switch')
-        input(id='{{task._id}}-switch', type='checkbox', ng-model='task.run_on_startup')
-        label(for='{{task._id}}-switch')
-    div(class='small-2 columns')
-      label Interval
-      p {{task.interval.humanize()}}
-      input(type='number', ng-model='task.form.amount')
-      select(ng-model='task.form.unit')
-        option(value='minutes') Minutes
-        option(value='hours') Hours
-    div(class='small-10 columns')
-      {{task}}
+    form(name='form', novalidate, ng-submit='form.$valid && update(task, form)')
+      div(class='small-2 columns')
+        label Task
+        h6 {{task.name}}
+      div(class='small-2 columns')
+        label Run On Startup
+        div(class='switch')
+          input(id='{{task._id}}-switch', type='checkbox', ng-model='task.run_on_startup')
+          label(for='{{task._id}}-switch')
+      div(class='small-3 columns')
+        label Interval
+        div(class='row')
+          div(class='small-6 columns')
+            input(type='number', ng-model='task.form.amount')
+          div(class='small-6 columns')
+            select(ng-model='task.form.unit')
+              option(value='minutes') Minutes
+              option(value='hours') Hours
+      div(class='small-5 columns')
+        label
+          p
+        input(class='tiny button', type='submit', ng-disabled='form.$pristine || form.$invalid')
   div(class='row')
     div(class='small-12 columns')
       hr

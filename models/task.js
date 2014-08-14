@@ -1,6 +1,10 @@
-var mongoose = require('mongoose');
+var   mongoose = require('mongoose')
+    , moment   = require('moment')
+    , winston  = require('winston');
+
 var Schema = mongoose.Schema;
-var moment = require('moment');
+var ObjectId = mongoose.Types.ObjectId;
+var automation = require('./../automation.js');
 
 var taskSchema = mongoose.Schema({
     name: { type: String },
@@ -8,10 +12,6 @@ var taskSchema = mongoose.Schema({
     last_run_time: { type: Date },
     run_on_startup: { type: Boolean, default: false},
 });
-
-taskSchema.methods.updateConfig = function () {
-    console.log(this);
-};
 
 taskSchema.statics.list = function (callback) {
     return this.find({}, callback);
@@ -27,6 +27,22 @@ taskSchema.statics.createByName = function (name, callback) {
     tempTask.interval = moment.duration(15, 'minute').asMilliseconds();
     tempTask.run_on_startup = false;
     tempTask.save(callback);
+};
+
+taskSchema.statics.update = function (data, callback) {
+    var query, updateStatement, options;
+    automation.updateInterval(data, function(err, result) {
+        (err) ? winston.error(err) : winston.info(result);
+    });
+    query = {
+        '_id': data._id
+    };
+    updateStatement = {
+        'interval': data.interval,
+        'run_on_startup': data.run_on_startup,
+    };
+    options = {};
+    return this.findOneAndUpdate(query, updateStatement, options, callback);
 };
 
 module.exports = mongoose.model('Task', taskSchema, 'tasks');

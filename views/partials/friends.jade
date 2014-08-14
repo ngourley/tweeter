@@ -1,0 +1,18 @@
+div(class='row')
+  div(class='small-12 columns')
+    h3 Friends {{friends.length}}
+    hr(style='margin-top: 0px;')
+div(ng-repeat="friend in friends")
+
+  div(class='row')
+    div(class='small-2 columns')
+      a(href='https://twitter.com/{{friend.screen_name}}', target='_blank')
+        img(src="{{getLargerImage(friend.profile_image_url)}}", style='width: 100%;')
+    div(class='small-10 columns')
+      h6 {{friend.name}}
+      h6 
+        a(href='https://twitter.com/{{friend.screen_name}}', target='_blank') @{{friend.screen_name}}
+      h6 {{friend.description}}
+  div(class='row')
+    div(class='small-12 columns')
+      hr

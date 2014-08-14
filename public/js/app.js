@@ -18,6 +18,10 @@ config(['$routeProvider', function($routeProvider) {
         templateUrl:'partials/followers',
         controller: 'FollowersController',
     });
+    $routeProvider.when('/friends', {
+        templateUrl:'partials/friends',
+        controller: 'FriendsController',
+    });
     $routeProvider.when('/actions', {
         templateUrl:'partials/actions',
         controller: 'ActionsController',
