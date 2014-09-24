@@ -31,8 +31,11 @@ Bot.prototype.searchTweets = function (params, callback) {
 
 Bot.prototype.getRetweetIds = function (callback) {
     var self = this;
-    self.twit.get('statuses/user_timeline', {q: self.username}, function(err, tweets) {
-        if (err) return callback(err);
+    self.twit.get('statuses/user_timeline', {q: self.username},
+        function(err, tweets) {
+        if (err) {
+            return callback(err);
+        }
         var exclusionList = [];
         __.each(tweets, function(tweet) {
 
@@ -41,7 +44,7 @@ Bot.prototype.getRetweetIds = function (callback) {
             if (tweet.retweeted_status === undefined) {
                 return;
             }
-            exclusionList.push(tweet.retweeted_status.id_str)
+            exclusionList.push(tweet.retweeted_status.id_str);
         });
         callback(null, exclusionList);
     });
@@ -49,21 +52,15 @@ Bot.prototype.getRetweetIds = function (callback) {
 
 Bot.prototype.getRateLimit = function (callback) {
     var self = this;
-    self.twit.get('application/rate_limit_status', {resources: ['statuses', 'friendships']}, callback);
-};
-
-Bot.prototype.getFollowerList = function (callback) {
-    var self = this;
-    self.twit.get('friends/list', callback);
-};
-
-Bot.prototype.getFollowerIds = function (callback) {
-    var self = this;
-    self.twit.get('friends/ids', callback);
+    self.twit.get('application/rate_limit_status',
+        {resources: ['statuses', 'friendships']},
+        callback);
 };
 
 Bot.prototype.tweet = function (text, callback) {
     var self = this;
+    text; self; // TODO - Add basic tweet functionality
+    callback(new Error('Functionality not yet implemented'));
 };
 
 Bot.prototype.retweet = function (tweet, callback) {
@@ -85,14 +82,16 @@ Bot.prototype.retweetTopic = function (topic, callback) {
     };
 
     self.getRetweetIds(function(err, exclusionList) {
-        if (err) return callback(err);
+        if (err) {
+            return callback(err);
+        }
         self.retweetMostPopular(exclusionList, params, callback);
     });
 };
 
 Bot.prototype.retweetRandom = function (callback) {
     var self = this;
-    this.retweetTopic(randomTopic(), callback);
+    self.retweetTopic(randomTopic(), callback);
 };
 
 Bot.prototype.retweetMostPopular = function (exclusionList, params, callback) {
@@ -102,19 +101,29 @@ Bot.prototype.retweetMostPopular = function (exclusionList, params, callback) {
         var max = 0, popular;
 
         __.each(data.statuses, function(tweet) {
-            if(exclusionList.indexOf(tweet.id_str) !== -1) {
+
+            if (exclusionList.indexOf(tweet.id_str) !== -1) {
                 return;
-            } 
+            }
+
+            // TODO - Remove nested if-statement
+            if (tweet.retweeted_status !== undefined) {
+                if (exclusionList.indexOf(tweet.retweeted_status.id_str) !== -1) {
+                    return;
+                }
+            }
 
             if (tweet.retweet_count > max) {
                 max = tweet.retweet_count;
                 popular = tweet;
             }
         });
-        console.log(popular);
-        self.twit.post('statuses/retweet/:id', { id: popular.id_str, }, callback);
+
+        self.twit.post('statuses/retweet/:id',
+            { id: popular.id_str, },
+            callback);
     });
-}
+};
 
 Bot.prototype.untweet = function (tweet, callback) {
     var self = this;
@@ -123,7 +132,7 @@ Bot.prototype.untweet = function (tweet, callback) {
 
 Bot.prototype.follow = function (userId, callback) {
     var self = this;
-    self.twit.post('friendships/create', { id: user_id }, callback);
+    self.twit.post('friendships/create', { id: userId }, callback);
 };
 
 Bot.prototype.unfollow = function (userId, callback) {
@@ -142,7 +151,8 @@ Bot.prototype.mingleLikelyToFollow = function (callback) {
         var followers = reply.ids
         , randFollower  = randIndex(followers);
         
-        self.twit.get('friends/list', { user_id: randFollower }, function(err, data) {
+        self.twit.get('friends/list', { user_id: randFollower },
+            function(err, data) {
             if (err) {
                 return callback(err, null); 
             }
@@ -174,7 +184,8 @@ Bot.prototype.mingleLikelyToFollow = function (callback) {
                     return;
                 }
 
-                var followToFollerRatio = user.friends_count / user.followers_count;
+                var followToFollerRatio =
+                    user.friends_count / user.followers_count;
 
                 if (followToFollerRatio > max) {
                     max = followToFollerRatio;
@@ -188,7 +199,6 @@ Bot.prototype.mingleLikelyToFollow = function (callback) {
     });
 };
 
-
 Bot.prototype.mingle = function (callback) {
     var self = this;
 
@@ -200,7 +210,8 @@ Bot.prototype.mingle = function (callback) {
         var followers = reply.ids
         , randFollower  = randIndex(followers);
         
-        self.twit.get('friends/ids', { user_id: randFollower }, function(err, reply) {
+        self.twit.get('friends/ids', { user_id: randFollower },
+            function(err, reply) {
             if (err) {
                 return callback(err, null); 
             }
@@ -247,12 +258,16 @@ Bot.prototype.prune = function (callback) {
     var self = this;
 
     this.twit.get('followers/ids', function(err, reply) {
-        if(err) return callback(err);
+        if (err) {
+            return callback(err);
+        }
 
         var followers = reply.ids;
 
         self.twit.get('friends/ids', function(err, reply) {
-            if(err) return callback(err);
+            if (err) {
+                return callback(err);
+            }
 
             var friends = reply.ids
             , pruned = false;
@@ -262,10 +277,39 @@ Bot.prototype.prune = function (callback) {
 
                 if(!~followers.indexOf(target)) {
                     pruned = true;
-                    self.twit.post('friendships/destroy', { id: target }, callback);   
+                    self.twit.post('friendships/destroy',
+                        { id: target },
+                        callback);
                 }
             }
         });
+    });
+};
+
+Bot.prototype.favoriteRandom = function (callback) {
+    var self = this;
+    var params = {
+          q: randomTopic()
+        , since: getTodayDateStamp()
+        , result_type: 'mixed'
+        , lang: 'en'
+    };
+
+    self.favorite(params, callback);
+};
+
+Bot.prototype.favorite = function (params, callback) {
+    var self = this;
+
+    self.twit.get('search/tweets', params, function (err, reply) {
+        if (err) {
+            return callback(err);
+        }
+
+        var tweets = reply.statuses;
+        var randomTweet = randIndex(tweets);
+
+        self.twit.post('favorites/create', { id: randomTweet.id_str }, callback);
     });
 };
 

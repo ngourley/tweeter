@@ -29,6 +29,13 @@ files.vendor.javascript = [
     'bower_components/angular-route/angular-route.js',
     'bower_components/angular-socket-io/socket.js',
     'bower_components/Autolinker.js/dist/Autolinker.js',
+    'bower_components/notifyjs/dist/notify.js',
+    'bower_components/notifyjs/dist/styles/bootstrap/notify-bootstrap.js',
+    'bower_components/modernizr/modernizr.js',
+    'bower_components/foundation/js/foundation.js',
+    'bower_components/moment/moment.js',
+    'bower_components/underscore/underscore.js',
+
 ];
 files.vendor.css = [
     'bower_components/foundation/css/foundation.css',

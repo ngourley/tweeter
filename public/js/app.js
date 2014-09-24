@@ -18,9 +18,21 @@ config(['$routeProvider', function($routeProvider) {
         templateUrl:'partials/followers',
         controller: 'FollowersController',
     });
+    $routeProvider.when('/friends', {
+        templateUrl:'partials/friends',
+        controller: 'FriendsController',
+    });
+    $routeProvider.when('/actions', {
+        templateUrl:'partials/actions',
+        controller: 'ActionsController',
+    });
+    $routeProvider.when('/automation', {
+        templateUrl:'partials/automation',
+        controller: 'AutomationController'
+    });
     $routeProvider.otherwise({redirectTo: '/home'});
 }]).run(function($rootScope) {
-
+    $(document).foundation();
 });
 
 // Init Controllers
