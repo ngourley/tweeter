@@ -286,4 +286,31 @@ Bot.prototype.prune = function (callback) {
     });
 };
 
+Bot.prototype.favoriteRandom = function (callback) {
+    var self = this;
+    var params = {
+          q: randomTopic()
+        , since: getTodayDateStamp()
+        , result_type: 'mixed'
+        , lang: 'en'
+    };
+
+    self.favorite(params, callback);
+};
+
+Bot.prototype.favorite = function (params, callback) {
+    var self = this;
+
+    self.twit.get('search/tweets', params, function (err, reply) {
+        if (err) {
+            return callback(err);
+        }
+
+        var tweets = reply.statuses;
+        var randomTweet = randIndex(tweets);
+
+        self.twit.post('favorites/create', { id: randomTweet.id_str }, callback);
+    });
+};
+
 module.exports = Bot;

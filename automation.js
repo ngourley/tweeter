@@ -2,11 +2,22 @@ var   task     = require('./models/task')
     , follower = require('./models/follower')
     , friend   = require('./models/friend')
     , winston  = require('winston')
-    , async    = require('async');
+    , async    = require('async')
+    , config   = require('./config')
+    , Bot      = require('./bot');
 
-var tastNames = ['cacheFollowers', 'cacheFriends'];
+var tastNames = [
+    'cacheFollowers',
+    'cacheFriends',
+    'retweetRandom',
+    'followLikeyToFollow',
+    'favoriteRandom'
+];
 var intervals = {};
 var taskFuncs = {};
+
+
+var bot = new Bot(config.twitter);
 
 taskFuncs.cacheFollowers = function () {
     winston.info('Caching Followers');
@@ -18,6 +29,27 @@ taskFuncs.cacheFriends = function () {
     winston.info('Caching Friends');
     friend.cacheIds();
     friend.cacheList();
+};
+
+taskFuncs.retweetRandom = function () {
+    bot.retweetRandom(function (err, data) {
+        (err) ? winston.error(err) :
+            winston.info('Retweet successful.');
+    });
+};
+
+taskFuncs.followLikeyToFollow = function () {
+    bot.mingleLikelyToFollow(function (err, user) {
+        (err) ? winston.error(err) :
+            winston.info('Following @' + user.screen_name);
+    });
+};
+
+taskFuncs.favoriteRandom = function () {
+    bot.favoriteRandom(function (err, data) {
+        (err) ? winston.error(err) :
+            winston.info('Favorite successful.');
+    });
 };
 
 function init () {
