@@ -3,20 +3,20 @@ var config = {};
 
 config.twitter = {};
 config.twitter.api = {
-      consumer_key: ''
-    , consumer_secret: ''
-    , access_token: ''
-    , access_token_secret: ''
+      consumer_key: process.env.CONSUMER_KEY
+    , consumer_secret: process.env.CONSUMER_SECRET
+    , access_token: process.env.ACCESS_TOKEN
+    , access_token_secret: process.env.ACCESS_TOKEN_SECRET
 };
 
 config.twitter.username = 'nathangourley';
 
 config.mongo = {};
-config.mongo.user = process.env.MONGO_USER || 'root';
-config.mongo.password = process.env.MONGO_PASSWORD || 'password';
+config.mongo.user = process.env.MONGO_USER;
+config.mongo.password = process.env.MONGO_PASSWORD;
 config.mongo.database = process.env.MONGO_DATABASE || 'twitter';
-config.mongo.host = process.env.MONGO_HOST || 'kahana.mongohq.com';
-config.mongo.port = process.env.MONGO_PORT || '10078';
+config.mongo.host = process.env.MONGO_HOST;
+config.mongo.port = process.env.MONGO_PORT;
 
 config.mongo.getUri = function() {
     return 'mongodb://' + config.mongo.user + ':' +
