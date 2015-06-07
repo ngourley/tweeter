@@ -119,6 +119,11 @@ Bot.prototype.retweetMostPopular = function (exclusionList, params, callback) {
             }
         });
 
+        if (popular === undefined) {
+            winston.warn('Retween failed, popular tweet could not be found.');
+            return;
+        }
+
         self.twit.post('statuses/retweet/:id',
             { id: popular.id_str, },
             callback);
