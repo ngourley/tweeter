@@ -1,6 +1,7 @@
 var   mongoose = require('mongoose')
     , moment   = require('moment')
     , winston  = require('winston');
+var config = require('../config.js');
 
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Types.ObjectId;
@@ -45,4 +46,4 @@ taskSchema.statics.update = function (data, callback) {
     return this.findOneAndUpdate(query, updateStatement, options, callback);
 };
 
-module.exports = mongoose.model('Task', taskSchema, 'tasks');
+module.exports = mongoose.model('Task', taskSchema, config.twitter.username + 'tasks');

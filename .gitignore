@@ -30,3 +30,6 @@ bower_components
 # Assets Created / Copied by Gulp
 public/dist
 public/fonts
+
+# User config
+user_*.json

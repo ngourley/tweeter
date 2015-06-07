@@ -1,15 +1,17 @@
 var moment = require('moment');
 var config = {};
+var userCfg;
 
 config.twitter = {};
-config.twitter.api = {
-      consumer_key: process.env.CONSUMER_KEY
-    , consumer_secret: process.env.CONSUMER_SECRET
-    , access_token: process.env.ACCESS_TOKEN
-    , access_token_secret: process.env.ACCESS_TOKEN_SECRET
-};
+config.twitter.username = '';
+userCfg = require('./user_' + config.twitter.username + '.json')
 
-config.twitter.username = 'nathangourley';
+config.twitter.api = {
+      consumer_key: userCfg.consumer_key
+    , consumer_secret: userCfg.consumer_secret
+    , access_token: userCfg.access_token
+    , access_token_secret: userCfg.access_token_secret
+};
 
 config.mongo = {};
 config.mongo.user = process.env.MONGO_USER;
@@ -32,9 +34,15 @@ config.winston.timestamp = function() {
 };
 
 config.topics = [
-      '#nodejs'
-    , '#javascript'
-    , '#angularjs'
+      '#travel'
+    , '#cooking'
+    , '#KansasCity'
+    , '#Royals'
+    , '#Sephora'
+    , '#Seinfeld'
+    , '#ShineShineShine'
+    , '#rhony'
+    , '#rhomelbourne'
 ];
 
 module.exports = config;

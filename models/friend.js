@@ -4,6 +4,7 @@ var twitterClient = require('../client');
 var __ = require('underscore');
 var winston = require('winston');
 var async = require('async');
+var config = require('../config.js');
 
 var friendSchema = mongoose.Schema({
     id:  { type: Number, default: -1},
@@ -109,4 +110,4 @@ friendSchema.statics.cacheList = function () {
     });
 };
 
-module.exports = mongoose.model('Friend', friendSchema, 'friends');
+module.exports = mongoose.model('Friend', friendSchema, config.twitter.username + 'friends');
