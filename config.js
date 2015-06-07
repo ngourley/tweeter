@@ -33,16 +33,6 @@ config.winston.timestamp = function() {
     return moment().format('D MMM HH:mm:ss');
 };
 
-config.topics = [
-      '#travel'
-    , '#cooking'
-    , '#KansasCity'
-    , '#Royals'
-    , '#Sephora'
-    , '#Seinfeld'
-    , '#ShineShineShine'
-    , '#rhony'
-    , '#rhomelbourne'
-];
+config.topics = userCfg.topics;
 
 module.exports = config;
